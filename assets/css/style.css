@@ -760,6 +760,7 @@ a.header-search {
 
 .mainmenu-area .navbar {
   padding: 0;
+  left: 5rem;
 }
 
 .mainmenu-area .navbar-nav .active.nav-link {
