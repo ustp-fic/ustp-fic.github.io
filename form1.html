@@ -16,6 +16,8 @@
     <link href="https://fonts.googleapis.com/css?family=Dosis:300,400,500,600,700,800|Roboto:300,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
     <!-- Icofont CSS --> 
     <link rel="stylesheet" href="assets/css/icofont.min.css">
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Style CSS --> 
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Custom CSS -->
@@ -30,7 +32,9 @@
         }
 
         .header {
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 20px;
             background-color: #F03322;
             color: #fff;
@@ -38,11 +42,11 @@
 
         .header img {
             max-width: 100px;
-            margin-bottom: 10px;
         }
 
         .header h1 {
-            color: #fff
+            color: #fff;
+            margin: 0;
         }
 
         .container {
@@ -83,13 +87,15 @@
             margin-top: 20px;
         }
 
-        .teacher-icon {
+        .warning-icon {
             display: block;
             margin: 20px auto;
             cursor: pointer;
             font-size: 2em;
             color: #F03322;
+            text-align: right;
         }
+
         #instructions {
             display: none;
             background-color: #e9ecef;
@@ -103,20 +109,23 @@
 
 <body>
     <div class="header">
-        <img src="assets/img/fic.jpg" alt="Logo">
+        <img src="assets/img/ff.png" alt="Logo">
         <h1>Job Order Request Form</h1>
     </div>
 
     <div class="container">
-        <i class="teacher-icon">👨‍🏫</i>
+        <i class="fas fa-exclamation-circle warning-icon"></i>
         <div id="instructions">
-            <h4>How to Fill Out the Form</h4>
+            <h4>PROCESS FLOW/DETAILS</h4>
             <p>Follow these steps to complete the reservation form:</p>
             <ol>
-                <li>Fill out the date information in Section I.</li>
-                <li>Select the type of reservation in Section II.</li>
-                <li>Provide detailed information in Section III.</li>
-                <li>Fill in the preparer's information in Section IV.</li>
+                <li>1. Request of rental for equipment or NMFIC facility</li>
+                <li>2. Checking of NMFIC schedule.</li>
+                <li>3. Completion and approval of the request.</li>
+                <li>4. Execution of food processing or packaging service requested.</li>
+                <li>5. Issuance of billing statement.</li>
+                <li>6. Payment of applicable fees.</li>
+                <li>7. Release of processed / packed product.</li>
             </ol>
         </div>
 
@@ -182,7 +191,6 @@
                 </div>
             </div>
 
-
             <div class="welcome-btn">
                 <a href="form-page.html" class="btn btn-primary"><i class="icofont icofont-caret-left"></i>Go Back</a>
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -192,10 +200,11 @@
 
     <!-- JavaScript for additional functionality -->
     <script>
-            document.querySelector('.teacher-icon').addEventListener('click', function () {
+        document.querySelector('.warning-icon').addEventListener('click', function () {
             var instructions = document.getElementById('instructions');
             instructions.style.display = instructions.style.display === 'block' ? 'none' : 'block';
         });
+
         function addRow() {
             var table = document.querySelector('.item-details tbody');
             var newRow = document.createElement('tr');
@@ -205,7 +214,6 @@
                 <td><input type="text" name="remarks[]" class="form-control"></td>
             `;
             table.appendChild(newRow);
-
         }
 
         function removeRow() {
