@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NMFIC</title>
+  <script src="https://kit.fontawesome.com/50187f42ec.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/assets/css/style2.css">
+  <script src="/assets/js/main.js"></script>
+  
+</head>
+<body>
+
+  <main class="container">
+
+    <!-- LOGIN & REGISTRATION FORM -->
+    
+    <!-- LOGIN PANEL -->
+    <div id="login-form" class="login-form">  <!-- LOGIN FORM PANEL -->
+      
+      <form action="" class="login"> <!-- LOGIN FORM -->
+        <h1 class="login-title">LOGIN</h1><br>
+        <div class="input">
+          <input type="text" id="logUsername" placeholder="Username"><br>
+          <input type="password" id="logPassword" placeholder="Password"><br><br>
+          <button onclick="loginAction()">LOG IN</button><br><br>
+        </div>
+
+      </form> <!-- END OF LOGIN FORM -->
+    </div> <!-- END OF LOGIN FORM PANEL -->
+
+
+
+    <!-- REGISTRATION PANEL -->
+    <div id="registration-form" class="registration-form" style="display: none;"> <!-- REGISTRATION FORM PANEL -->
+
+      <form action="" class="register"> <!-- REGISTRATION FORM -->
+        <h1 class="register-title">REGISTRATION</h1><br>
+        <div class="input">
+          <input type="text" id="regUsername" placeholder="Username"><br>
+          <input type="password" id="regPassword" placeholder="Password"><br>
+          <input type="email" id="regEmail" placeholder="Email"><br><br>
+          <button onclick="registerAction()">REGISTER</button><br><br>
+        </div>
+
+      </form> <!-- END OF REGISTRATION FORM -->
+    </div> <!-- END OF REGISTRATION FORM PANEL -->
+
+    <!-- RIGHT PANEL FORM -->
+    <div id="right-panel" class="right-panel">
+      <div class="right-button">
+        <a href="#">
+            <button id="sign-up" onclick="signUpInSelector()">SIGN UP</button>
+        </a>
+      </div>
+    </div><!-- END OF RIGHT PANEL FORM -->
+
+    <!-- LEFT PANEL FORM -->
+    <div id="left-panel" class="left-panel">
+      <div class="left-button">
+        <a href="">
+            <button id="sign-in" onclick="signUpInSelector()">SIGN IN</button>
+        </a>
+      </div>
+    </div><!-- END OF LEFT PANEL FORM -->
+
+  </main>
+</body>
+</html>
