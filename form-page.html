@@ -32,6 +32,106 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <!-- Responsive  CSS -->
         <link rel="stylesheet" href="assets/css/responsive.css">
+
+        <style>
+            body {
+              font-family: Arial, sans-serif;
+              text-align: center;
+            }
+        
+            h1 {
+              color: #000000;
+            }
+        
+            .arrow-button {
+              background-color: transparent;
+              border: none;
+              font-size: 20px;
+              cursor: pointer;
+              color: #000000;
+            }
+        
+            #month-nav {
+              margin-bottom: 20px;
+            }
+        
+            #currentMonth {
+              font-size: 24px;
+              font-weight: bold;
+              color: #000000;
+              margin: 0 10px;
+            }
+        
+            #calendar-container {
+              width: 440px;
+              height: 300px;
+              margin: 0 auto;
+              background-color: #fff;
+              border-radius: 8px;
+              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+              overflow: hidden;
+            }
+        
+            #calendar {
+              width: 100%;
+              height: 100%;
+              border-collapse: collapse;
+            }
+        
+            #calendar th, #calendar td {
+              padding: 10px;
+              border: 1px solid #ddd;
+              font-size: 14px;
+            }
+            #calendar th {
+              background-color: #dd8c88;
+              color: #fff;
+              font-weight: bold;
+            }
+        
+            #calendar td {
+              cursor: pointer;
+              text-align: center;
+            }
+        
+            .unavailable {
+              background-color: #fff;
+              color: #EE2C22;
+              font-weight: bold;
+            }
+        
+            .available {
+              background-color: #80EA01;
+              color: #fff;
+              font-weight: bold;
+            }
+        
+            .current-date {
+              background-color: #dd8c88;
+              color: #fff;
+              font-weight: bold;
+            }
+        
+            .admin-controls {
+              display: flex;
+              justify-content: center;
+              margin-bottom: 20px;
+            }
+        
+            .admin-controls input[type="date"] {
+              margin-right: 10px;
+            }
+        
+            .admin-controls button {
+              margin-left: 10px;
+              background-color: #6cf336;
+              color: #fff;
+              border: none;
+              padding: 8px 16px;
+              border-radius: 4px;
+              cursor: pointer;
+            }
+          </style>
      </head>
 
     <body id="main">
@@ -185,7 +285,30 @@
             <div class="auto-container">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-lg-0 mb-lg-0 mb-5">
-                        <img class="img-fluid" src="assets/img/bg/about-img.png" alt=""/>
+                        <h1>FIC Calendar</h1>
+                        <div id="month-nav">
+                        <button id="prevMonth" class="arrow-button">◀</button>
+                        <span id="currentMonth"></span>
+                        <button id="nextMonth" class="arrow-button">▶</button>
+                        </div>
+
+                        <div id="calendar-container">
+                            <table id="calendar">
+                              <thead>
+                                <tr>
+                                  <th>Sun</th>
+                                  <th>Mon</th>
+                                  <th>Tue</th>
+                                  <th>Wed</th>
+                                  <th>Thu</th>
+                                  <th>Fri</th>
+                                  <th>Sat</th>
+                                </tr>
+                              </thead>
+                              <tbody id="calendar-body">
+                              </tbody>
+                            </table>
+                          </div>
                     </div>
                     <!-- end col -->
                     <div class="col-lg-6 col-md-6 col-sm-12 col-12">
@@ -294,5 +417,115 @@
         <script src="assets/js/wow.min.js"></script>
         <!-- scripts js -->
         <script src="assets/js/scripts.js"></script>
+
+        <script>
+            let currentDate = new Date();
+            let currentMonth = currentDate.getMonth();
+            let currentYear = currentDate.getFullYear();
+            let isAdmin = false; // Set to true for demonstration purposes, in a real application, this would be handled securely
+          
+            function generateCalendar(month, year) {
+              let firstDay = new Date(year, month, 1);
+              let lastDay = new Date(year, month + 1, 0);
+              let startingDay = firstDay.getDay();
+              let totalDays = lastDay.getDate();
+              let rowCount = Math.ceil((totalDays + startingDay) / 7);
+          
+              let tbody = document.getElementById("calendar-body");
+              tbody.innerHTML = '';
+          
+              let date = 1;
+              for (let i = 0; i < rowCount; i++) {
+                let row = document.createElement("tr");
+          
+                for (let j = 0; j < 7; j++) {
+                  let cell = document.createElement("td");
+                  if ((i === 0 && j < startingDay) || date > totalDays) {
+                    row.appendChild(cell);
+                  } else {
+                    let currentDay = (date + startingDay - 1) % 7; // 0 for Sunday, 1 for Monday, ..., 6 for Saturday
+                    if (currentDay === 0 || currentDay === 6) { // If it's Sunday or Saturday, make it unavailable by default
+                      cell.classList.add("unavailable");
+                    }
+                    if (year === currentDate.getFullYear() && month === currentDate.getMonth() && date === currentDate.getDate()) {
+                      cell.classList.add("current-date");
+                    }
+                    cell.textContent = date;
+                    row.appendChild(cell);
+                    date++;
+                  }
+                }
+                tbody.appendChild(row);
+              }
+          
+              document.getElementById("currentMonth").textContent = `${getMonthName(month)} ${year}`;
+            }
+          
+            function getMonthName(month) {
+              let monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"];
+              return monthNames[month];
+            }
+          
+            generateCalendar(currentMonth, currentYear);
+          
+            document.getElementById("prevMonth").addEventListener("click", () => {
+              currentMonth--;
+              if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+              }
+              generateCalendar(currentMonth, currentYear);
+            });
+          
+            document.getElementById("nextMonth").addEventListener("click", () => {
+              currentMonth++;
+              if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+              }
+              generateCalendar(currentMonth, currentYear);
+            });
+          
+            document.getElementById("setUnavailableDate").addEventListener("click", () => {
+              let dateInput = document.getElementById("unavailableDate").value;
+              let selectedDate = new Date(dateInput);
+              let selectedDay = selectedDate.getDate();
+              let selectedMonth = selectedDate.getMonth();
+              let selectedYear = selectedDate.getFullYear();
+          
+              if (selectedMonth === currentMonth && selectedYear === currentYear) {
+                let firstDay = new Date(selectedYear, selectedMonth, 1);
+                let cellIndex = selectedDay + firstDay.getDay() - 1; 
+                let cell = document.querySelectorAll(`#calendar-body td`)[cellIndex];
+                if (cell) {
+                  cell.classList.add("unavailable");
+                  cell.classList.remove("available");
+                }
+              }
+            });
+          
+            document.getElementById("setAvailableDate").addEventListener("click", () => {
+              let dateInput = document.getElementById("availableDate").value;
+              let selectedDate = new Date(dateInput);
+              let selectedDay = selectedDate.getDate();
+              let selectedMonth = selectedDate.getMonth();
+              let selectedYear = selectedDate.getFullYear();
+          
+              if (selectedMonth === currentMonth && selectedYear === currentYear) {
+                let firstDay = new Date(selectedYear, selectedMonth, 1);
+                let cellIndex = selectedDay + firstDay.getDay() - 1; 
+                let cell = document.querySelectorAll(`#calendar-body td`)[cellIndex];
+                if (cell) {
+                  cell.classList.add("available");
+                  cell.classList.remove("unavailable");
+                }
+              }
+            });
+          
+            if (!isAdmin) {
+              document.getElementById("admin-controls").style.display = "none";
+            }
+          </script>
     </body>
 </html>

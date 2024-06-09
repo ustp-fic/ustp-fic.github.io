@@ -5415,6 +5415,15 @@ a.header-search {
   background: #D22B2B;
 }
 
+.con-btn-login {
+  font-size: 14px;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 13px 100px;
+  background: #F26122;
+}
+
 .con-btn:hover, 
 .con-btn:focus, 
 .con-btn:active {
@@ -5422,6 +5431,15 @@ a.header-search {
   color: #fff;
   box-shadow: none;
 }
+
+.con-btn-login:hover, 
+.con-btn-login:focus, 
+.con-btn-login:active {
+  background: #333;
+  color: #fff;
+  box-shadow: none;
+}
+
 
 
 /*success box style*/
