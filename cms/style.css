@@ -1,0 +1,16 @@
+body {
+    font-size: .875rem;
+}
+
+.main {
+    padding: 2rem;
+}
+
+.card {
+    border-radius: .5rem;
+    cursor: pointer;
+}
+
+.clickable-chart {
+    cursor: pointer;
+}
